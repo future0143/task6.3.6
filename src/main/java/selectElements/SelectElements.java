@@ -20,11 +20,11 @@ public class SelectElements {
         return driver.findElements(By.className(className));
     }
 
-    public static WebElement selectListOfElementsByCssSelector(WebDriver driver, String cssSelector) {
+    public static WebElement selectElementByCssSelector(WebDriver driver, String cssSelector) {
         return driver.findElement(By.cssSelector(cssSelector));
     }
 
-    public static WebElement selectListOfElementsByText(WebDriver driver, String text) {
+    public static WebElement selectElementByText(WebDriver driver, String text) {
         return driver.findElement(By.linkText(text));
     }
 

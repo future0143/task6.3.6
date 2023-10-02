@@ -39,15 +39,15 @@ public class BaseSteps {
         return listOfGoods.get(index);
     }
 
-    @Step(value = "Поиск списка элементов по css-селектору и нажатие на него")
+    @Step(value = "Поиск элемента по css-селектору и нажатие на него")
     public static void clickElementByCssSelector(WebDriver driver, String cssSelector) {
-        WebElement webElement = selectListOfElementsByCssSelector(driver, cssSelector);
+        WebElement webElement = selectElementByCssSelector(driver, cssSelector);
         webElement.click();
     }
 
-    @Step(value = "Поиск списка элементов по тексту и нажатие на него")
+    @Step(value = "Поиск элемента по тексту и нажатие на него")
     public static void clickElementByText(WebDriver driver, String text) {
-        WebElement webElement = selectListOfElementsByText(driver, text);
+        WebElement webElement = selectElementByText(driver, text);
         webElement.click();
         waitTime(3000);
     }
