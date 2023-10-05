@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public interface ConfigSetup {
 
     String url = TestProperties.getValue("test.url");
@@ -16,6 +18,8 @@ public interface ConfigSetup {
         WebDriverManager.chromedriver().driverVersion("117.0.5938.92").setup();
 
         driver.get(url);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @AfterAll

@@ -3,48 +3,29 @@ package basketTest;
 import config.ConfigSetup;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
-import steps.BaseSteps;
 
-import java.util.concurrent.TimeUnit;
-
-import static selectElements.SelectElements.getAttribute;
+import static steps.BaseSteps.*;
 import static validator.ValidationOfElements.validateTitle;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CartItemAdditionTest extends BaseSteps implements ConfigSetup {
+public class CartItemAdditionTest implements ConfigSetup {
 
     @Test
     @DisplayName("Добавление товара в корзину")
     @Description("Поиск товара по наменованию и добавление его в корзину")
     public void ScriptWb() {
-        String idForSearch = "searchInput";
         String keys = "iphone";
-        sendKeysToInput(driver, idForSearch, keys);
+        enterProductNameToSearchLine(keys);
 
-        String xPath = "//*[@id=\"applySearchBtn\"]";
-        clickElementByXPath(driver, xPath);
+        int indexOfGood = 0;
+        String titleOfProductInProductCard = goToFirstProductPage(indexOfGood);
 
-        String className = "product-card";
-        int indexOfGoods = 0;
-        String attribute = "title";
-        WebElement elementFromListGoods = getElementFromListWithClassName(driver, className, indexOfGoods);
-        String titleExpected = getAttribute(elementFromListGoods, attribute);
+        addProductToBasket();
 
-        elementFromListGoods.click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        goToBasket();
 
-        String cssSelector = "button[data-link*='addToBasket']";
-        clickElementByCssSelector(driver, cssSelector);
+        String titleOfProductInBasket = getFirstProductFromBasket();
 
-        String linkText = "Перейти в корзину";
-        clickElementByText(driver, linkText);
-
-        String className2 = "accordion__list";
-        int indexOfElement = 0;
-        WebElement elementFromBasket = getElementFromListWithClassName(driver, className2, indexOfElement);
-        String titleActual = getAttribute(elementFromBasket, attribute);
-
-        validateTitle(titleExpected, titleActual);
+        validateTitle(titleOfProductInProductCard, titleOfProductInBasket);
     }
 }
